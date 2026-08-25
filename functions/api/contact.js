@@ -114,18 +114,21 @@ export async function onRequestPost(context) {
     const to = context.env.CONTACT_TO_EMAIL;
     const resendKey = context.env.RESEND_API_KEY;
 
-    if (!to || !resendKey) {
-      return new Response(
-        JSON.stringify({
-          error: "El servicio de correo no está configurado.",
-        }),
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
+if (!to || !resendKey) {
+  return new Response(
+    JSON.stringify({
+      error: "El servicio de correo no está configurado.",
+      diagnostico: {
+        CONTACT_TO_EMAIL: to ? "OK" : "FALTA",
+        RESEND_API_KEY: resendKey ? "OK" : "FALTA"
+      }
+    }),
+    {
+      status: 500,
+      headers: corsHeaders,
     }
-
+  );
+}
     // =========================================================
     // 7. ASUNTO
     // =========================================================
