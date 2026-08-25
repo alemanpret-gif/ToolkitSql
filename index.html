@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Toolkit Pro</title>
+<style>
+/* ============================================================
+   SQL TOOLKIT PRO — DESIGN TOKENS
+   ============================================================ */
+:root{
+  --bg:#0b0f14;
+  --bg-elev:#10151c;
+  --surface:#151b23;
+  --surface-2:#1b2229;
+  --surface-hover:#202834;
+  --border:#262f3a;
+  --border-soft:#1e2630;
+  --text:#e7ecf2;
+  --text-dim:#8b96a5;
+  --text-faint:#5c6675;
+  --accent:#45d9c3;
+  --accent-strong:#2fc4ad;
+  --accent-dim:rgba(69,217,195,0.12);
+  --accent-2:#8b9dfc;
+  --accent-2-dim:rgba(139,157,252,0.12);
+  --danger:#f0596a;
+  --danger-dim:rgba(240,89,106,0.13);
+  --warning:#f0ab4e;
+  --warning-dim:rgba(240,171,78,0.14);
+  --success:#45d9c3;
+  --success-dim:rgba(69,217,195,0.13);
+  --radius-lg:14px;
+  --radius-md:10px;
+  --radius-sm:7px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:0 6px 20px rgba(0,0,0,0.35);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.45);
+  --font-ui:'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:'Cascadia Code', 'Cascadia Mono', Consolas, 'SFMono-Regular', Menlo, monospace;
+  --tok-kw:#5eead4;
+  --tok-str:#f4b678;
+  --tok-num:#8b9dfc;
+  --tok-tbl:#e7ecf2;
+}
+html[data-theme="light"]{
+  --bg:#f3f5f8;
+  --bg-elev:#ffffff;
+  --surface:#ffffff;
+  --surface-2:#eef1f6;
+  --surface-hover:#e5e9f0;
+  --border:#dbe1e9;
+  --border-soft:#e6eaf0;
+  --text:#1a2230;
+  --text-dim:#5c6675;
+  --text-faint:#8b95a5;
+  --accent:#0e9488;
+  --accent-strong:#0b7d73;
+  --accent-dim:rgba(14,148,136,0.09);
+  --accent-2:#5b6fd6;
+  --accent-2-dim:rgba(91,111,214,0.09);
+  --danger:#d8404f;
+  --danger-dim:rgba(216,64,79,0.09);
+  --warning:#b8791a;
+  --warning-dim:rgba(184,121,26,0.10);
+  --success:#0e9488;
+  --success-dim:rgba(14,148,136,0.09);
+  --shadow-sm:0 1px 2px rgba(20,30,50,0.06);
+  --shadow-md:0 6px 20px rgba(20,30,50,0.08);
+  --shadow-lg:0 16px 40px rgba(20,30,50,0.12);
+  --tok-kw:#0b7d73;
+  --tok-str:#a15b12;
+  --tok-num:#5b6fd6;
+  --tok-tbl:#1a2230;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-ui);
+  font-size:14px;
+  line-height:1.5;
+  min-height:100vh;
+  transition:background .25s ease, color .25s ease;
+}
+::selection{background:var(--accent-dim); color:var(--text);}
+::-webkit-scrollbar{width:10px; height:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:8px;}
+::-webkit-scrollbar-thumb:hover{background:var(--text-faint);}
+
+button, input, select, textarea{font-family:inherit; font-size:inherit; color:inherit;}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+.app{
+  max-width:1240px;
+  margin:0 auto;
+  padding:20px 20px 60px;
+}
+
+/* ---------- Topbar ---------- */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.brand-mark{
+  width:40px; height:40px;
+  border-radius:11px;
+  background:linear-gradient(145deg, var(--accent), var(--accent-2));
+  display:flex; align-items:center; justify-content:center;
+  font-size:19px;
+  box-shadow:var(--shadow-sm);
+  flex-shrink:0;
+}
+.brand-text h1{
+  font-size:17px; margin:0; font-weight:700; letter-spacing:.2px;
+}
+.brand-text span{
+  font-size:11.5px; color:var(--text-dim); font-family:var(--font-mono); letter-spacing:.3px;
+}
+.top-actions{display:flex; align-items:center; gap:10px;}
+.icon-btn{
+  width:38px; height:38px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px;
+  transition:background .15s ease, transform .1s ease, border-color .15s ease;
+}
+.icon-btn:hover{background:var(--surface-hover); border-color:var(--text-faint);}
+.icon-btn:active{transform:scale(.94);}
+
+/* ---------- Tabs ---------- */
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:22px;
+}
+.tab-btn{
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:12px 16px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:var(--text-dim);
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  white-space:nowrap;
+  border-radius:12px;
+  box-shadow:var(--shadow-sm);
+  transition:
+    color .18s ease,
+    background .18s ease,
+    border-color .18s ease,
+    transform .12s ease,
+    box-shadow .18s ease;
+}
+.tab-btn:hover{
+  color:var(--text);
+  background:var(--surface-hover);
+  border-color:var(--text-faint);
+  transform:translateY(-1px);
+}
+.tab-btn.active{
+  color:var(--accent);
+  border-color:var(--accent);
+  background:var(--accent-dim);
+  box-shadow:0 5px 18px rgba(69,217,195,.10);
+}
+.tab-btn:first-child{ }
+.tab-btn:nth-child(2){ }
+.tab-btn:nth-child(3){ }
+.tab-btn:nth-child(4){ }
+
+/* ---------- Panels / Cards ---------- */
+.panel{display:none; animation:fadeIn .2s ease;}
+.panel.active{display:block;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:var(--shadow-sm);
+}
+.card-header{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  margin-bottom:14px;
+  flex-wrap:wrap;
+}
+.card-title{
+  display:flex; align-items:center; gap:9px;
+  font-size:14.5px; font-weight:700;
+}
+.card-title .card-icon{font-size:17px;}
+.card-sub{font-size:12px; color:var(--text-faint); margin-top:2px;}
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;}
+
+/* ---------- Form elements ---------- */
+label.field-label{
+  display:block; font-size:12px; font-weight:600; color:var(--text-dim);
+  margin-bottom:6px; letter-spacing:.2px;
+}
+.input, .select, textarea.textarea{
+  width:100%;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:9px 11px;
+  color:var(--text);
+  transition:border-color .15s ease, background .15s ease;
+}
+.input:focus, .select:focus, textarea.textarea:focus{
+  border-color:var(--accent); background:var(--bg-elev);
+}
+textarea.textarea{
+  font-family:var(--font-mono);
+  font-size:13px;
+  resize:vertical;
+  min-height:110px;
+  line-height:1.55;
+}
+.input.mono{font-family:var(--font-mono);}
+.field{margin-bottom:14px;}
+.field:last-child{margin-bottom:0;}
+.hint{font-size:11.5px; color:var(--text-faint); margin-top:5px;}
+.inline-fields{display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;}
+.inline-fields > *{flex:1; min-width:120px;}
+
+.checkbox-row{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-dim); cursor:pointer; user-select:none;}
+.checkbox-row input{width:16px; height:16px; accent-color:var(--accent); cursor:pointer;}
+
+/* Segmented control (orientation, etc.) */
+.segmented{display:inline-flex; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden;}
+.segmented button{
+  padding:8px 14px; background:var(--surface-2); border:none; color:var(--text-dim);
+  cursor:pointer; font-weight:600; font-size:12.5px; border-right:1px solid var(--border);
+}
+.segmented button:last-child{border-right:none;}
+.segmented button.active{background:var(--accent-dim); color:var(--accent);}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:9px 16px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text);
+  font-weight:600;
+  font-size:13px;
+  cursor:pointer;
+  transition:background .15s ease, border-color .15s ease, transform .08s ease;
+  white-space:nowrap;
+}
+.btn:hover{background:var(--surface-hover); border-color:var(--text-faint);}
+.btn:active{transform:scale(.97);}
+.btn-primary{
+  background:linear-gradient(135deg, var(--accent), var(--accent-strong));
+  border-color:transparent; color:#08201c;
+}
+html[data-theme="light"] .btn-primary{color:#ffffff;}
+.btn-primary:hover{filter:brightness(1.07);}
+.btn-danger{background:var(--danger-dim); border-color:transparent; color:var(--danger);}
+.btn-danger:hover{background:var(--danger); color:#fff;}
+.btn-ghost{background:transparent; border-color:var(--border);}
+.btn-sm{padding:6px 11px; font-size:12px;}
+.btn-icon{
+  width:30px; height:30px; border-radius:8px; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text-dim); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; font-size:13px;
+  flex-shrink:0;
+}
+.btn-icon:hover{background:var(--danger-dim); color:var(--danger); border-color:transparent;}
+.btn-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
+.btn-clear{
+  margin-left:auto;
+  background:var(--danger-dim);
+  border-color:transparent;
+  color:var(--danger);
+}
+.btn-clear:hover{background:var(--danger);color:#fff;}
+@media (max-width:600px){
+  .btn-clear{margin-left:0;flex:1 1 auto;}
+}
+
+
+/* ---------- Property / filter rows ---------- */
+.prop-row, .filt-row{
+  display:grid; grid-template-columns:1fr 1fr 34px; gap:8px; margin-bottom:8px; align-items:center;
+}
+.filt-row{grid-template-columns:1fr 130px 1fr 34px;}
+
+
+/* ---------- Output / SQL preview ---------- */
+.output-wrap{position:relative; margin-top:10px;}
+.sql-preview{
+  background:var(--bg-elev);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:16px 18px;
+  font-family:var(--font-mono);
+  font-size:13px;
+  line-height:1.7;
+  white-space:pre-wrap;
+  word-break:break-word;
+  min-height:70px;
+  color:var(--text);
+}
+.sql-preview:empty::before{content:"El SQL generado aparecerá aquí…"; color:var(--text-faint);}
+.tok-kw{color:var(--tok-kw); font-weight:700;}
+.tok-str{color:var(--tok-str);}
+.tok-num{color:var(--tok-num);}
+
+/* ---------- Warnings / banners ---------- */
+.banner{
+  display:none; align-items:center; gap:10px;
+  padding:12px 14px; border-radius:var(--radius-md);
+  background:var(--danger-dim); color:var(--danger);
+  font-weight:700; font-size:13px; margin-bottom:14px;
+  border:1px solid transparent;
+}
+.banner.static{display:flex; background:var(--warning-dim); color:var(--warning); font-weight:600;}
+.banner.show{display:flex;}
+
+/* ---------- Toasts ---------- */
+#toast-container{
+  position:fixed; bottom:22px; right:22px; z-index:9999;
+  display:flex; flex-direction:column; gap:10px; max-width:340px;
+}
+.toast{
+  background:var(--surface); border:1px solid var(--border); color:var(--text);
+  padding:12px 16px; border-radius:var(--radius-md); box-shadow:var(--shadow-lg);
+  font-size:13px; font-weight:600; opacity:0; transform:translateX(20px) scale(.97);
+  transition:opacity .25s ease, transform .25s ease; border-left:3px solid var(--accent);
+}
+.toast.show{opacity:1; transform:translateX(0) scale(1);}
+.toast-error{border-left-color:var(--danger);}
+.toast-success{border-left-color:var(--success);}
+
+/* ---------- Badges ---------- */
+.badge{
+  display:inline-block; padding:2px 8px; border-radius:6px; font-size:10.5px; font-weight:700;
+  letter-spacing:.4px; text-transform:uppercase;
+}
+.badge-update{background:var(--accent-dim); color:var(--accent);}
+.badge-select{background:var(--accent-2-dim); color:var(--accent-2);}
+.badge-delete{background:var(--danger-dim); color:var(--danger);}
+.badge-conversor{background:var(--warning-dim); color:var(--warning);}
+
+/* ---------- Utility grid ---------- */
+.util-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.stat-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
+.stat-pill{
+  background:var(--surface-2); border:1px solid var(--border); border-radius:20px;
+  padding:6px 12px; font-size:12px; color:var(--text-dim); font-weight:600;
+}
+.stat-pill b{color:var(--text); font-family:var(--font-mono);}
+
+.kbd{
+  font-family:var(--font-mono); background:var(--surface-2); border:1px solid var(--border);
+  border-bottom-width:2px; border-radius:5px; padding:1px 6px; font-size:11px;
+}
+
+footer.app-footer{
+  text-align:center;
+  color:var(--text-faint);
+  font-size:11.5px;
+  margin-top:42px;
+  padding:28px 16px 12px;
+  border-top:1px solid var(--border-soft);
+}
+.footer-title{
+  color:var(--text);
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:8px;
+  letter-spacing:.2px;
+}
+.footer-message{
+  max-width:700px;
+  margin:0 auto;
+  color:var(--text-dim);
+  line-height:1.65;
+}
+.footer-verse{
+  max-width:620px;
+  margin:18px auto 15px;
+  padding:14px 18px;
+  border-left:3px solid var(--accent);
+  border-right:3px solid var(--accent);
+  border-radius:8px;
+  background:var(--accent-dim);
+  color:var(--text);
+  font-family:Georgia, 'Times New Roman', serif;
+  font-size:13px;
+  line-height:1.7;
+  font-style:italic;
+}
+.footer-verse strong{
+  display:inline-block;
+  margin-top:3px;
+  color:var(--accent);
+  font-family:var(--font-ui);
+  font-size:11.5px;
+  font-style:normal;
+}
+.footer-author{
+  color:var(--text-dim);
+  font-size:11.5px;
+  margin-top:12px;
+}
+.footer-author strong{
+  color:var(--accent);
+}
+.footer-privacy{
+  margin-top:8px;
+  color:var(--text-faint);
+  font-size:10.5px;
+}
+@media(max-width:600px){
+  footer.app-footer{
+    margin-top:30px;
+    padding:22px 10px 8px;
+  }
+  .footer-message{
+    max-width:100%;
+  }
+  .footer-verse{
+    margin:15px auto 13px;
+    padding:12px 13px;
+    font-size:12px;
+  }
+}
+
+@media (max-width:860px){
+  .dashboard{grid-template-columns:repeat(2,1fr);}
+  .grid-2, .grid-3, .util-grid{grid-template-columns:1fr;}
+  .filt-row{grid-template-columns:1fr; grid-template-rows:auto; }
+  .prop-row{grid-template-columns:1fr 1fr 34px;}
+}
+@media (max-width:520px){
+  .dashboard{grid-template-columns:1fr 1fr;}
+  .app{padding:14px 12px 40px;}
+  .card{padding:15px;}
+}
+
+/* ---------- Responsive refinements ---------- */
+@media (max-width:860px){
+  .dashboard{grid-template-columns:repeat(2,1fr);}
+  .grid-2, .grid-3, .util-grid{grid-template-columns:1fr;}
+  .filt-row{grid-template-columns:1fr;}
+  .prop-row{grid-template-columns:1fr 1fr 34px;}
+  .topbar{align-items:flex-start;}
+}
+@media (max-width:600px){
+  .tabs{
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+  }
+  .tab-btn{
+    min-height:54px;
+    padding:10px 8px;
+    font-size:12.5px;
+  }
+  .app{padding:12px 10px 34px;}
+  .topbar{gap:10px;}
+  .brand{min-width:0;}
+  .brand-text h1{font-size:16px;}
+  .brand-text span{font-size:10.5px;}
+  .top-actions{margin-left:auto;}
+  .dashboard{grid-template-columns:1fr 1fr; gap:8px;}
+  .dash-card{padding:11px 12px; min-width:0;}
+  .dash-card .dash-value{font-size:18px;}
+  .dash-card.op .dash-value{font-size:12px;}
+  .tabs{margin-bottom:14px;}
+  .tab-btn{padding:9px 11px;font-size:12px;}
+  .card{padding:14px;border-radius:12px;}
+  .inline-fields > *{min-width:100%;}
+  .btn-row .btn{flex:1 1 auto;}
+}
+@media (max-width:390px){
+  .tabs{
+    grid-template-columns:repeat(2,1fr);
+    gap:7px;
+  }
+  .tab-btn{
+    min-height:50px;
+    font-size:11.5px;
+    gap:5px;
+  }
+  .top-actions .icon-btn{width:35px;height:35px;}
+  .tab-btn{padding:8px 9px;}
+}
+
+
+/* ---------- Contacto ---------- */
+.footer-contact-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:18px auto 14px;
+  padding:10px 22px;
+  border:1px solid var(--accent);
+  border-radius:9px;
+  background:var(--accent-dim);
+  color:var(--accent);
+  font-weight:700;
+  font-size:12.5px;
+  cursor:pointer;
+  transition:all .18s ease;
+}
+.footer-contact-btn:hover{
+  background:var(--accent);
+  color:#08201c;
+  transform:translateY(-1px);
+}
+html[data-theme="light"] .footer-contact-btn:hover{color:#fff;}
+
+.contact-modal{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(3,7,12,.72);
+  backdrop-filter:blur(5px);
+}
+.contact-modal.open{display:flex;}
+.contact-box{
+  width:min(560px,100%);
+  max-height:90vh;
+  overflow:auto;
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  box-shadow:var(--shadow-lg);
+}
+.contact-icon{
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:11px;
+  background:var(--accent-dim);
+  margin-bottom:10px;
+}
+.contact-box h2{margin:0 0 6px;font-size:19px;}
+.contact-intro{margin:0 0 18px;color:var(--text-dim);line-height:1.6;}
+.contact-close{
+  position:absolute;
+  right:14px;top:14px;
+  width:34px;height:34px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--surface-2);
+  color:var(--text-dim);
+  cursor:pointer;
+}
+.contact-close:hover{color:var(--danger);background:var(--danger-dim);}
+.contact-submit{margin-top:15px;width:100%;justify-content:center;} .contact-submit:disabled{opacity:.65;cursor:wait;}
+.contact-note{
+  margin-top:10px;
+  color:var(--text-faint);
+  font-size:10.5px;
+  line-height:1.5;
+}
+@media(max-width:600px){
+  .contact-box{padding:18px;border-radius:13px;}
+  .footer-contact-btn{width:auto;min-width:130px;}
+}
+
+</style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">🗄️</div>
+      <div class="brand-text">
+        <h1>SQL Toolkit Pro</h1>
+        <span>Created by Alequin · SQL SERVER</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="theme-toggle" title="Cambiar tema">🌙</button>
+      <button class="icon-btn" id="shortcuts-btn" title="Atajos de teclado">⌨️</button>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="conversor">🔁 Conversor</button>
+    <button class="tab-btn" data-tab="update">✏️ UPDATE</button>
+    <button class="tab-btn" data-tab="select">🔎 SELECT / IN</button>
+    <button class="tab-btn" data-tab="utils">🧰 Utilidades</button>
+  </nav>
+
+  <main class="content">
+    <!-- ============== PANEL: CONVERSOR ============== -->
+    <section id="tab-conversor" class="panel active">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="card-icon">📋</span> Lista de datos</div>
+            <div class="card-sub">Pega tus datos: uno por línea, o separados por comas, tabulaciones, punto y coma o espacios. Se detecta cada registro por separado.</div>
+          </div>
+          <button class="btn btn-sm btn-clear" id="clear-conv-input">🗑️ Limpiar</button>
+        </div>
+        <div class="field">
+          <textarea id="conv-input" class="textarea" rows="8" placeholder="185010649&#10;185010650&#10;185010654&#10;185010655&#10;185010656"></textarea>
+        </div>
+        <div class="stat-row" id="conv-stats"></div>
+        <div class="btn-row">
+          <button class="btn" id="conv-strip-zeros">🧹 Quitar ceros</button>
+          <button class="btn" id="conv-dedupe">♻️ Quitar duplicados</button>
+          <select class="select" id="conv-sort" style="max-width:180px;">
+            <option value="original">Orden: original</option>
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+          </select>
+          <button class="btn" id="conv-apply-sort">Aplicar orden</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-icon">⚙️</span> Opciones de formato</div>
+          <button class="btn btn-sm btn-clear" id="clear-conv-options">🗑️ Restablecer</button>
+        </div>
+        <div class="grid-3">
+          <div class="field">
+            <label class="field-label">Agregar ceros</label>
+            <select class="select" id="conv-zeros">
+              <option value="0">Sin ceros</option>
+              <option value="1">1 cero</option>
+              <option value="2">2 ceros</option>
+              <option value="3">3 ceros</option>
+              <option value="custom">Personalizado…</option>
+            </select>
+          </div>
+          <div class="field" id="conv-zeros-custom-wrap" style="display:none;">
+            <label class="field-label">Cantidad personalizada</label>
+            <input type="number" min="0" class="input" id="conv-zeros-custom" placeholder="Ej: 4" value="0">
+          </div>
+          <div class="field">
+            <label class="field-label">Comillas</label>
+            <select class="select" id="conv-quotes">
+              <option value="none">Sin comillas</option>
+              <option value="single" selected>Comillas simples</option>
+              <option value="double">Comillas dobles</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label class="field-label">Orientación del resultado</label>
+            <div class="segmented" id="conv-orientation-toggle">
+              <button type="button" class="active" data-mode="vertical">Vertical</button>
+              <button type="button" data-mode="horizontal">Horizontal</button>
+            </div>
+          </div>
+          <div class="field" style="align-self:end;">
+            <label class="checkbox-row"><input type="checkbox" id="conv-lastcomma"> Agregar coma al último elemento</label>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="conv-generate">⚡ Generar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-icon">📄</span> Resultado</div>
+          <button class="btn btn-sm btn-clear" id="clear-conv-result">🗑️ Limpiar</button>
+        </div>
+        <div class="output-wrap">
+          <pre class="sql-preview" id="conv-output"></pre>
+        </div>
+        <div class="btn-row">
+          <button class="btn" id="conv-copy-sql">📋 Copiar SQL</button>
+          <button class="btn btn-ghost" id="conv-copy-values">📋 Copiar valores</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== PANEL: UPDATE ============== -->
+    <section id="tab-update" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-icon">🧱</span> Tabla</div>
+          <button class="btn btn-sm btn-clear" id="clear-upd-table">🗑️ Limpiar</button>
+        </div>
+        <div class="field">
+          <label class="field-label">Nombre de la tabla</label>
+          <input type="text" class="input mono" id="upd-table" placeholder="dbo.Factura">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="card-icon">🏷️</span> Propiedades a modificar</div>
+            <div class="card-sub">Propiedad · Nuevo valor. El tipo (texto, número, NULL, GUID) se detecta automáticamente.</div>
+          </div>
+          <button class="btn btn-sm btn-clear" id="clear-upd-props">🗑️ Limpiar</button>
+        </div>
+        <div id="upd-props"></div>
+        <div class="btn-row">
+          <button class="btn" id="upd-add-prop">+ Agregar propiedad</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="card-icon">🆔</span> ID(s) del registro</div>
+            <div class="card-sub">Pega uno o varios IDs. Se usará automáticamente <code>WHERE Id = ...</code> o <code>WHERE Id IN (...)</code>.</div>
+          </div>
+          <button class="btn btn-sm btn-clear" id="clear-upd-ids">🗑️ Limpiar</button>
+        </div>
+        <textarea id="upd-ids" class="textarea" rows="5" placeholder="123&#10;456&#10;789"></textarea>
+        <div class="banner" id="upd-warning">⚠️ UPDATE SIN WHERE BLOQUEADO — agrega al menos un ID antes de generar.</div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="upd-generate">⚡ Generar UPDATE</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-icon">📄</span> Resultado</div>
+          <button class="btn btn-sm btn-clear" id="clear-upd-result">🗑️ Limpiar</button>
+        </div>
+        <div class="output-wrap">
+          <pre class="sql-preview" id="upd-output"></pre>
+        </div>
+        <div class="btn-row">
+          <button class="btn" id="upd-copy-sql">📋 Copiar SQL</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== PANEL: SELECT / IN ============== -->
+    <section id="tab-select" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-icon">🧱</span> Tabla y campo</div>
+          <button class="btn btn-sm btn-clear" id="clear-sel-table">🗑️ Limpiar</button>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label class="field-label">Tabla</label>
+            <input type="text" class="input mono" id="sel-table" placeholder="dbo.Factura">
+          </div>
+          <div class="field">
+            <label class="field-label">Campo del WHERE (modo IN)</label>
+            <input type="text" class="input mono" id="sel-field" placeholder="Id" value="Id">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-icon">🧾</span> Columnas a seleccionar</div>
+          <button class="btn btn-sm btn-clear" id="clear-sel-columns">🗑️ Limpiar</button>
+        </div>
+        <div class="field">
+          <label class="checkbox-row" style="margin-bottom:10px;">
+            <input type="radio" name="sel-mode" value="star" checked> SELECT * (todas las columnas)
+          </label>
+          <label class="checkbox-row" style="margin-bottom:10px;">
+            <input type="radio" name="sel-mode" value="columns"> Elegir columnas específicas
+          </label>
+        </div>
+        <div class="field" id="sel-columns-wrap" style="display:none;">
+          <textarea id="sel-columns" class="textarea" rows="4" placeholder="Id&#10;FacturaInterna&#10;Status_Value&#10;CreatedDate"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="card-icon">🔧</span> Condición WHERE</div>
+            <div class="card-sub">Modo simple (IDs) o modo avanzado (filtros múltiples con AND).</div>
+          </div>
+          <div class="inline-fields" style="justify-content:flex-end;flex:0 0 auto;">
+            <label class="checkbox-row"><input type="checkbox" id="sel-advanced-toggle"> Modo avanzado</label>
+            <button class="btn btn-sm btn-clear" id="clear-sel-where">🗑️ Limpiar</button>
+          </div>
+        </div>
+
+        <div id="sel-basic-block">
+          <div class="field">
+            <label class="field-label">Valores / IDs</label>
+            <textarea id="sel-ids" class="textarea" rows="5" placeholder="123&#10;456&#10;789"></textarea>
+          </div>
+        </div>
+
+        <div id="sel-advanced-block" style="display:none;">
+          <div id="sel-filters"></div>
+          <div class="btn-row">
+            <button class="btn" id="sel-add-filter">+ Agregar filtro</button>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="sel-generate">⚡ Generar SELECT</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-icon">📄</span> Resultado</div>
+          <button class="btn btn-sm btn-clear" id="clear-sel-result">🗑️ Limpiar</button>
+        </div>
+        <div class="output-wrap">
+          <pre class="sql-preview" id="sel-output"></pre>
+        </div>
+        <div class="btn-row">
+          <button class="btn" id="sel-copy-sql">📋 Copiar SQL</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="card-icon">🔃</span> Conversión rápida de IN</div>
+            <div class="card-sub">Convierte entre una lista vertical y un bloque <code>IN (...)</code>, en ambos sentidos.</div>
+          </div>
+          <button class="btn btn-sm btn-clear" id="clear-in-conversion">🗑️ Limpiar</button>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label class="field-label">Lista de valores</label>
+            <textarea id="in-list" class="textarea" rows="6" placeholder="123&#10;456&#10;789"></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label">Bloque IN (...)</label>
+            <textarea id="in-block" class="textarea" rows="6" placeholder="IN (&#10;'123',&#10;'456',&#10;'789'&#10;)"></textarea>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn" id="in-to-block">Lista ➜ IN (...)</button>
+          <button class="btn" id="in-to-list">IN (...) ➜ Lista</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== PANEL: UTILIDADES ============== -->
+    <section id="tab-utils" class="panel">
+      <div class="util-grid">
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">🔢</span> Contar registros</div>
+            <button class="btn btn-sm btn-clear" id="clear-util-count">🗑️ Limpiar</button>
+          </div>
+          <textarea id="util-count-input" class="textarea" rows="6" placeholder="Pega tu lista aquí…"></textarea>
+          <div class="btn-row"><button class="btn" id="util-count-btn">Contar</button></div>
+          <div class="stat-row" id="util-count-stats"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">🧽</span> Limpieza rápida</div>
+            <button class="btn btn-sm btn-clear" id="clear-util-clean">🗑️ Limpiar</button>
+          </div>
+          <div class="card-sub" style="margin-bottom:10px;">Quita espacios, comillas o comas de cada línea.</div>
+          <textarea id="util-clean-input" class="textarea" rows="6" placeholder="'123',&#10;'456',&#10;  789  "></textarea>
+          <div class="btn-row">
+            <button class="btn btn-sm" id="util-trim-btn">Quitar espacios</button>
+            <button class="btn btn-sm" id="util-quotes-btn">Quitar comillas</button>
+            <button class="btn btn-sm" id="util-commas-btn">Quitar comas</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">📑</span> CSV ⇄ Lista</div>
+            <button class="btn btn-sm btn-clear" id="clear-util-csv">🗑️ Limpiar</button>
+          </div>
+          <textarea id="util-csv-input" class="textarea" rows="6" placeholder="123,456,789&#10;o bien&#10;123&#10;456&#10;789"></textarea>
+          <div class="btn-row">
+            <button class="btn btn-sm" id="util-to-list-btn">CSV ➜ Lista</button>
+            <button class="btn btn-sm" id="util-to-csv-btn">Lista ➜ CSV</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">🧬</span> Lista ➜ JSON / SQL IN</div>
+            <button class="btn btn-sm btn-clear" id="clear-util-json">🗑️ Limpiar</button>
+          </div>
+          <textarea id="util-json-input" class="textarea" rows="6" placeholder="123&#10;456&#10;789"></textarea>
+          <div class="btn-row">
+            <button class="btn btn-sm" id="util-to-json-btn">A JSON</button>
+            <button class="btn btn-sm" id="util-to-in-btn">A SQL IN (...)</button>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column:1 / -1;">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">🧮</span> Formateador SQL</div>
+            <button class="btn btn-sm btn-clear" id="clear-util-format">🗑️ Limpiar</button>
+          </div>
+          <div class="card-sub" style="margin-bottom:10px;">Toma una sentencia SQL en una sola línea y la reordena en formato legible (no es un parser SQL completo, cubre los casos más comunes).</div>
+          <textarea id="util-format-input" class="textarea" rows="4" placeholder="UPDATE dbo.Factura SET Status_Value=2 WHERE Id IN (1,2,3);"></textarea>
+          <div class="btn-row"><button class="btn" id="util-format-btn">Formatear</button></div>
+        </div>
+
+        <div class="card" style="grid-column:1 / -1;">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">📄</span> Resultado</div>
+            <button class="btn btn-sm btn-clear" id="clear-util-result">🗑️ Limpiar</button>
+          </div>
+          <div class="output-wrap">
+            <pre class="sql-preview" id="util-output"></pre>
+          </div>
+          <div class="btn-row">
+            <button class="btn" id="util-copy">📋 Copiar resultado</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    </main>
+
+  <footer class="app-footer">
+  <div class="footer-title">SQL Toolkit Pro</div>
+  <div class="footer-message">
+    Herramienta gratuita creada para compartir conocimiento y facilitar el trabajo
+    de la comunidad de desarrolladores y profesionales de datos.
+  </div>
+
+  <div class="footer-verse">
+    “Cada uno según el don que ha recibido, minístrelo a los otros...”<br>
+    <strong>— 1 Pedro 4:10</strong>
+  </div>
+
+  <button type="button" class="footer-contact-btn" id="footer-contact-btn">
+    ✉️ Contacto
+  </button>
+
+  <div class="footer-author">Created by <strong>Alequin</strong> · 2026</div>
+  <div class="footer-privacy">🔒 Tus datos no se guardan ni se envían a ningún servidor.</div>
+</footer>
+
+<div class="contact-modal" id="contact-modal" aria-hidden="true">
+  <div class="contact-box" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+    <button type="button" class="contact-close" id="contact-close" aria-label="Cerrar">✕</button>
+    <div class="contact-icon">✉️</div>
+    <h2 id="contact-title">Contacto</h2>
+    <p class="contact-intro">
+      ¿Tienes una sugerencia, encontraste un error o te interesa colaborar,
+      patrocinar o anunciarte en SQL Toolkit Pro?
+    </p>
+
+    <form id="contact-form">
+      <label class="field-label" for="contact-name">Nombre</label>
+      <input class="input" id="contact-name" type="text" placeholder="Tu nombre" required>
+
+      <label class="field-label" for="contact-email" style="margin-top:12px;">Correo electrónico</label>
+      <input class="input" id="contact-email" type="email" placeholder="tu@email.com" required>
+
+      <label class="field-label" for="contact-type" style="margin-top:12px;">Motivo</label>
+      <select class="select" id="contact-type">
+        <option>Sugerencia</option>
+        <option>Reportar un error</option>
+        <option>Publicidad</option>
+        <option>Patrocinio / colaboración</option>
+        <option>Otro</option>
+      </select>
+
+      <label class="field-label" for="contact-message" style="margin-top:12px;">Mensaje</label>
+      <textarea class="textarea" id="contact-message" rows="5" placeholder="Escribe tu mensaje..." required></textarea>
+
+      <div class="cf-turnstile"
+           data-sitekey="TU_TURNSTILE_SITE_KEY"
+           data-theme="auto"
+           data-action="contact"
+           data-response-field="true"></div>
+
+      <div class="contact-note">
+        El contenido de SQL Toolkit se procesa localmente. El formulario de contacto envía
+        únicamente los datos del mensaje para entregarlos al correo de contacto.
+      </div>
+
+      <button type="submit" class="btn btn-primary contact-submit" id="contact-submit">✉️ Enviar</button>
+    </form>
+  </div>
+</div>
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+'use strict';
+
+/* ============================================================
+   ESTADO GLOBAL
+   ============================================================ */
+const appState = { loaded:0, ids:0, props:0, lastOp:null };
+let lastGenerated = { type:null, sql:'', table:'' };
+let activeTab = 'conversor';
+let convOrientation = 'vertical';
+
+const THEME_KEY = 'sqltoolkitpro_theme';
+
+/* ============================================================
+   PARSEO DE LISTAS
+   ============================================================ */
+// Acepta datos separados por Enter, coma, tabulación, punto y coma o espacios.
+// Limpia comillas simples/dobles envolventes y comas finales.
+function parseList(raw){
+  if(!raw) return [];
+  let s = String(raw).replace(/\t/g, '\n');
+  let chunks = s.split(/[\n,;]+/);
+  const result = [];
+  chunks.forEach(chunk=>{
+    chunk.split(/\s+/).forEach(tok=>{
+      tok = tok.trim();
+      if(!tok) return;
+      tok = tok.replace(/^['"]+|['"]+$/g, '');
+      tok = tok.replace(/,+$/, '').replace(/^,+/, '');
+      tok = tok.trim();
+      if(tok) result.push(tok);
+    });
+  });
+  return result;
+}
+
+// Como parseList pero conserva línea por línea (sin partir por espacios) — usado en Utilidades/limpieza
+function parseLinesRaw(raw){
+  if(!raw) return [];
+  return String(raw).replace(/\r/g,'').split('\n');
+}
+
+function escapeHtmlText(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ============================================================
+   TRANSFORMACIONES DE VALORES
+   ============================================================ */
+function addZerosPrefix(list, count){
+  if(!count || count <= 0) return list.slice();
+  const prefix = '0'.repeat(count);
+  return list.map(v => prefix + v);
+}
+
+function stripLeadingZeros(v){
+  const m = String(v).match(/^0+(\d.*)$/);
+  return m ? m[1] : v;
+}
+
+function wrapQuote(v, mode){
+  if(mode === 'none') return v;
+  if(mode === 'single'){
+    return "'" + String(v).replace(/'/g, "''") + "'";
+  }
+  if(mode === 'double'){
+    return '"' + String(v).replace(/"/g, '""') + '"';
+  }
+  return v;
+}
+
+function applySort(list, mode){
+  if(mode === 'original') return list.slice();
+  const allNumeric = list.length > 0 && list.every(v => /^-?\d+(\.\d+)?$/.test(v));
+  const arr = list.slice();
+  if(mode === 'asc') arr.sort((a,b)=> allNumeric ? (parseFloat(a)-parseFloat(b)) : a.localeCompare(b));
+  else if(mode === 'desc') arr.sort((a,b)=> allNumeric ? (parseFloat(b)-parseFloat(a)) : b.localeCompare(a));
+  else if(mode === 'az') arr.sort((a,b)=> a.localeCompare(b));
+  else if(mode === 'za') arr.sort((a,b)=> b.localeCompare(a));
+  return arr;
+}
+
+// Detecta el tipo de un valor y produce la representación SQL adecuada:
+// numérico sin comillas, NULL literal, GUID entre comillas, texto entre comillas con escape de apóstrofes.
+function formatSqlValue(raw){
+  if(raw === null || raw === undefined) return 'NULL';
+  let v = String(raw).trim();
+  if(v === '' ) return 'NULL';
+  if(/^null$/i.test(v)) return 'NULL';
+  if(/^-?\d+(\.\d+)?$/.test(v)) return v;
+  const guidRe = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+  if(guidRe.test(v)) return "'" + v + "'";
+  if((v.startsWith("'") && v.endsWith("'") && v.length>=2) || (v.startsWith('"') && v.endsWith('"') && v.length>=2)){
+    v = v.slice(1, -1);
+  }
+  v = v.replace(/'/g, "''");
+  return "'" + v + "'";
+}
+
+/* ============================================================
+   RESALTADO DE SINTAXIS SQL (visual, no funcional)
+   ============================================================ */
+function highlightSql(sql){
+  const esc = escapeHtmlText(sql);
+  const master = /('(?:[^']|'')*')|(\b(?:UPDATE|SET|WHERE|SELECT|FROM|INSERT\s+INTO|VALUES|DELETE\s+FROM|AND|OR|NOT\s+IN|IN|IS\s+NOT\s+NULL|IS\s+NULL|LIKE|NULL|ORDER\s+BY|ASC|DESC)\b)|(-?\b\d+(?:\.\d+)?\b)/gi;
+  return esc.replace(master, (m, str, kw, num) => {
+    if(str !== undefined) return '<span class="tok-str">' + str + '</span>';
+    if(kw !== undefined) return '<span class="tok-kw">' + kw + '</span>';
+    if(num !== undefined) return '<span class="tok-num">' + num + '</span>';
+    return m;
+  });
+}
+
+/* ============================================================
+   TOASTS
+   ============================================================ */
+function toast(msg, type){
+  type = type || 'success';
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = 'toast toast-' + type;
+  el.style.whiteSpace = 'pre-line';
+  el.textContent = msg;
+  container.appendChild(el);
+  requestAnimationFrame(()=> el.classList.add('show'));
+  setTimeout(()=>{
+    el.classList.remove('show');
+    setTimeout(()=> el.remove(), 300);
+  }, 3200);
+}
+
+/* ============================================================
+   COPIAR AL PORTAPAPELES
+   ============================================================ */
+async function copyText(text, successMsg){
+  if(!text){ toast('No hay nada para copiar', 'error'); return; }
+  try{
+    await navigator.clipboard.writeText(text);
+    toast(successMsg || '✅ SQL copiado al portapapeles', 'success');
+  }catch(err){
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      toast(successMsg || '✅ SQL copiado al portapapeles', 'success');
+    }catch(e2){
+      toast('No se pudo copiar automáticamente', 'error');
+    }
+  }
+}
+
+/* ============================================================
+   TEMA CLARO / OSCURO
+   ============================================================ */
+function initTheme(){
+  const saved = localStorage.getItem(THEME_KEY) || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('theme-toggle').textContent = saved === 'dark' ? '☀️' : '🌙';
+}
+document.getElementById('theme-toggle').addEventListener('click', ()=>{
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem(THEME_KEY, next);
+  document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+});
+document.getElementById('shortcuts-btn').addEventListener('click', ()=>{
+  toast('Ctrl+Enter → Generar\nCtrl+Shift+C → Copiar SQL\nEsc → Cerrar avisos', 'success');
+});
+
+/* ============================================================
+   NAVEGACIÓN POR PESTAÑAS
+   ============================================================ */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> switchTab(btn.dataset.tab));
+});
+function switchTab(id){
+  document.querySelectorAll('.panel').forEach(p=> p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=> b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  document.querySelector('.tab-btn[data-tab="' + id + '"]').classList.add('active');
+  activeTab = id;
+}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+
+/* ============================================================
+   RESET DEL DASHBOARD AL ABRIR LA HERRAMIENTA
+   Los indicadores son solo de la sesión actual y nunca se
+   recuperan de LocalStorage ni quedan persistidos.
+   ============================================================ */
+function resetDashboardOnLoad(){
+  appState.loaded = 0;
+  appState.ids = 0;
+  appState.props = 0;
+  appState.lastOp = null;
+  lastGenerated = { type:null, sql:'', table:'' };
+}
+
+function renderDashboard(){
+  // Los indicadores superiores fueron eliminados de la interfaz.
+  // Se conserva esta función para no alterar la lógica de los módulos.
+}
+
+/* ============================================================
+   ATAJOS DE TECLADO
+   ============================================================ */
+const GENERATE_BTN_MAP = { conversor:'conv-generate', update:'upd-generate', select:'sel-generate' };
+const COPY_BTN_MAP = { conversor:'conv-copy-sql', update:'upd-copy-sql', select:'sel-copy-sql', utils:'util-copy' };
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.toast').forEach(t=> t.remove());
+  }
+  if(e.ctrlKey && e.key === 'Enter'){
+    const btnId = GENERATE_BTN_MAP[activeTab];
+    if(btnId){ e.preventDefault(); const b = document.getElementById(btnId); if(b) b.click(); }
+  }
+  if(e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')){
+    const btnId = COPY_BTN_MAP[activeTab];
+    if(btnId){ e.preventDefault(); const b = document.getElementById(btnId); if(b) b.click(); }
+  }
+});
+
+/* ============================================================
+   MÓDULO: CONVERSOR
+   ============================================================ */
+(function(){
+  const input = document.getElementById('conv-input');
+  const zerosSelect = document.getElementById('conv-zeros');
+  const zerosCustomWrap = document.getElementById('conv-zeros-custom-wrap');
+  const zerosCustom = document.getElementById('conv-zeros-custom');
+  const quotesSelect = document.getElementById('conv-quotes');
+  const lastCommaCheck = document.getElementById('conv-lastcomma');
+  const orientationToggle = document.getElementById('conv-orientation-toggle');
+  const sortSelect = document.getElementById('conv-sort');
+  const output = document.getElementById('conv-output');
+  const statsEl = document.getElementById('conv-stats');
+
+  function updateStats(){
+    const list = parseList(input.value);
+    statsEl.innerHTML = '<span class="stat-pill">Registros: <b>' + list.length + '</b></span>';
+  }
+  input.addEventListener('input', updateStats);
+
+  zerosSelect.addEventListener('change', ()=>{
+    zerosCustomWrap.style.display = zerosSelect.value === 'custom' ? '' : 'none';
+  });
+
+  orientationToggle.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      orientationToggle.querySelectorAll('button').forEach(b=> b.classList.remove('active'));
+      btn.classList.add('active');
+      convOrientation = btn.dataset.mode;
+    });
+  });
+
+  document.getElementById('conv-strip-zeros').addEventListener('click', ()=>{
+    const list = parseList(input.value);
+    if(list.length === 0){ toast('No hay datos para procesar', 'error'); return; }
+    const cleaned = list.map(stripLeadingZeros);
+    input.value = cleaned.join('\n');
+    updateStats();
+    toast('✅ Ceros iniciales eliminados de ' + cleaned.length + ' registros');
+  });
+
+  document.getElementById('conv-dedupe').addEventListener('click', ()=>{
+    const list = parseList(input.value);
+    if(list.length === 0){ toast('No hay datos para procesar', 'error'); return; }
+    const seen = new Set();
+    const out = [];
+    let dupCount = 0;
+    list.forEach(v=>{
+      if(seen.has(v)) dupCount++;
+      else { seen.add(v); out.push(v); }
+    });
+    input.value = out.join('\n');
+    updateStats();
+    toast(dupCount > 0 ? ('♻️ Se eliminaron ' + dupCount + ' duplicados') : 'No se encontraron duplicados');
+  });
+
+  document.getElementById('conv-apply-sort').addEventListener('click', ()=>{
+    const list = parseList(input.value);
+    if(list.length === 0){ toast('No hay datos para procesar', 'error'); return; }
+    const sorted = applySort(list, sortSelect.value);
+    input.value = sorted.join('\n');
+    updateStats();
+    toast('✅ Orden aplicado');
+  });
+
+  document.getElementById('conv-generate').addEventListener('click', ()=>{
+    let list = parseList(input.value);
+    if(list.length === 0){ toast('⚠️ No hay datos para procesar', 'error'); return; }
+
+    const zerosMode = zerosSelect.value;
+    const zeroCount = zerosMode === 'custom' ? (parseInt(zerosCustom.value, 10) || 0) : parseInt(zerosMode, 10);
+    const quoteMode = quotesSelect.value;
+    const lastComma = lastCommaCheck.checked;
+    const sortMode = sortSelect.value;
+
+    list = applySort(list, sortMode);
+    let transformed = addZerosPrefix(list, zeroCount);
+    transformed = transformed.map(v => wrapQuote(v, quoteMode));
+
+    const sep = convOrientation === 'vertical' ? ',\n' : ', ';
+    let out = transformed.join(sep);
+    if(lastComma) out += ',';
+
+    output.textContent = out;
+    lastGenerated = { type:'CONVERSOR', sql: out, table:'-' };
+    appState.loaded = list.length;
+    appState.lastOp = 'CONVERSOR · ' + new Date().toLocaleTimeString('es-ES');
+    renderDashboard();
+    toast('✅ Lista generada correctamente');
+  });
+
+  document.getElementById('conv-copy-sql').addEventListener('click', ()=>{
+    copyText(output.textContent, '✅ SQL copiado al portapapeles');
+  });
+  document.getElementById('conv-copy-values').addEventListener('click', ()=>{
+    const list = parseList(input.value);
+    copyText(list.join('\n'), '✅ Valores copiados al portapapeles');
+  });
+
+  updateStats();
+})();
+
+/* ============================================================
+   MÓDULO: UPDATE
+   ============================================================ */
+(function(){
+  const propsContainer = document.getElementById('upd-props');
+
+  function addPropRow(nameVal, valueVal){
+    const row = document.createElement('div');
+    row.className = 'prop-row';
+    row.innerHTML =
+      '<input type="text" class="input prop-name" placeholder="Propiedad (ej: FacturaInterna)">' +
+      '<input type="text" class="input prop-value" placeholder="Nuevo valor (ej: 2536987)">' +
+      '<button type="button" class="btn-icon remove-row" title="Eliminar">✕</button>';
+    if(nameVal !== undefined) row.querySelector('.prop-name').value = nameVal;
+    if(valueVal !== undefined) row.querySelector('.prop-value').value = valueVal;
+    row.querySelector('.remove-row').addEventListener('click', ()=> row.remove());
+    propsContainer.appendChild(row);
+  }
+  document.getElementById('upd-add-prop').addEventListener('click', ()=> addPropRow());
+  addPropRow();
+
+  function collectProps(){
+    const rows = propsContainer.querySelectorAll('.prop-row');
+    const props = [];
+    const errors = [];
+    rows.forEach((row, i)=>{
+      const name = row.querySelector('.prop-name').value.trim();
+      const value = row.querySelector('.prop-value').value;
+      if(!name && value.trim() === '') return;
+      if(!name){ errors.push('Fila ' + (i+1) + ': falta el nombre de la propiedad'); return; }
+      if(value.trim() === ''){ errors.push('La propiedad "' + name + '" no tiene valor'); return; }
+      props.push({ name, value });
+    });
+    return { props, errors };
+  }
+
+  function buildUpdate(table, props, ids){
+    const setLines = props.map(p => p.name + ' = ' + formatSqlValue(p.value)).join(',\n');
+    let whereClause;
+    if(ids.length === 1) whereClause = 'WHERE Id = ' + formatSqlValue(ids[0]) + ';';
+    else whereClause = 'WHERE Id IN (\n' + ids.map(formatSqlValue).join(',\n') + '\n);';
+    return 'UPDATE ' + table + '\nSET\n' + setLines + '\n' + whereClause;
+  }
+
+  document.getElementById('upd-generate').addEventListener('click', ()=>{
+    const table = document.getElementById('upd-table').value.trim();
+    const { props, errors } = collectProps();
+    const ids = parseList(document.getElementById('upd-ids').value);
+    const warnEl = document.getElementById('upd-warning');
+    warnEl.classList.remove('show');
+
+    if(!table){ toast('⚠️ Debes indicar la tabla', 'error'); return; }
+    if(props.length === 0){ toast('⚠️ Agrega al menos una propiedad a modificar', 'error'); return; }
+    if(errors.length){ toast(errors.join('\n'), 'error'); return; }
+    if(ids.length === 0){
+      warnEl.classList.add('show');
+      toast('⚠️ UPDATE SIN WHERE BLOQUEADO', 'error');
+      document.getElementById('upd-output').innerHTML = '';
+      return;
+    }
+
+    const sql = buildUpdate(table, props, ids);
+    document.getElementById('upd-output').innerHTML = highlightSql(sql);
+    lastGenerated = { type:'UPDATE', sql, table };
+    appState.props = props.length;
+    appState.ids = ids.length;
+    appState.loaded = ids.length;
+    appState.lastOp = 'UPDATE · ' + new Date().toLocaleTimeString('es-ES');
+    renderDashboard();
+    toast('✅ UPDATE generado correctamente');
+  });
+
+  document.getElementById('upd-copy-sql').addEventListener('click', ()=>{
+    if(lastGenerated.type !== 'UPDATE'){ toast('Genera un UPDATE primero', 'error'); return; }
+    copyText(lastGenerated.sql, '✅ SQL copiado al portapapeles');
+  });
+})();
+
+/* ============================================================
+   MÓDULO: SELECT / IN
+   ============================================================ */
+(function(){
+  const columnsWrap = document.getElementById('sel-columns-wrap');
+  document.querySelectorAll('input[name="sel-mode"]').forEach(r=>{
+    r.addEventListener('change', ()=>{
+      const mode = document.querySelector('input[name="sel-mode"]:checked').value;
+      columnsWrap.style.display = mode === 'columns' ? '' : 'none';
+    });
+  });
+
+  const advToggle = document.getElementById('sel-advanced-toggle');
+  const basicBlock = document.getElementById('sel-basic-block');
+  const advBlock = document.getElementById('sel-advanced-block');
+  advToggle.addEventListener('change', ()=>{
+    basicBlock.style.display = advToggle.checked ? 'none' : '';
+    advBlock.style.display = advToggle.checked ? '' : 'none';
+  });
+
+  const OPERATORS = ['=','<>','>','<','>=','<=','LIKE','IN','NOT IN','IS NULL','IS NOT NULL'];
+  const filtersContainer = document.getElementById('sel-filters');
+
+  function addFilterRow(){
+    const row = document.createElement('div');
+    row.className = 'filt-row';
+    const opsHtml = OPERATORS.map(op => '<option value="' + op + '">' + op + '</option>').join('');
+    row.innerHTML =
+      '<input type="text" class="input filt-field" placeholder="Campo (ej: Status_Value)">' +
+      '<select class="select filt-op">' + opsHtml + '</select>' +
+      '<input type="text" class="input filt-value" placeholder="Valor">' +
+      '<button type="button" class="btn-icon remove-row" title="Eliminar">✕</button>';
+    const opSelect = row.querySelector('.filt-op');
+    const valueInput = row.querySelector('.filt-value');
+    opSelect.addEventListener('change', ()=>{
+      const disable = opSelect.value === 'IS NULL' || opSelect.value === 'IS NOT NULL';
+      valueInput.disabled = disable;
+      valueInput.style.opacity = disable ? '.4' : '1';
+      if(disable) valueInput.value = '';
+    });
+    row.querySelector('.remove-row').addEventListener('click', ()=> row.remove());
+    filtersContainer.appendChild(row);
+  }
+  document.getElementById('sel-add-filter').addEventListener('click', ()=> addFilterRow());
+  addFilterRow();
+
+  function buildFilterClause(f){
+    const { field, op, value } = f;
+    if(op === 'IS NULL' || op === 'IS NOT NULL') return field + ' ' + op;
+    if(op === 'IN' || op === 'NOT IN'){
+      const vals = parseList(value);
+      return field + ' ' + op + ' (' + vals.map(formatSqlValue).join(', ') + ')';
+    }
+    if(op === 'LIKE'){
+      let v = value.trim();
+      if(!(v.startsWith("'") && v.endsWith("'"))) v = "'" + v.replace(/'/g,"''") + "'";
+      return field + ' LIKE ' + v;
+    }
+    return field + ' ' + op + ' ' + formatSqlValue(value);
+  }
+
+  document.getElementById('sel-generate').addEventListener('click', ()=>{
+    const table = document.getElementById('sel-table').value.trim();
+    const field = document.getElementById('sel-field').value.trim() || 'Id';
+    const mode = document.querySelector('input[name="sel-mode"]:checked').value;
+
+    if(!table){ toast('⚠️ Debes indicar la tabla', 'error'); return; }
+
+    let selectPart;
+    if(mode === 'columns'){
+      const cols = parseList(document.getElementById('sel-columns').value);
+      if(cols.length === 0){ toast('⚠️ Agrega al menos una columna o usa SELECT *', 'error'); return; }
+      selectPart = 'SELECT\n' + cols.join(',\n');
+    } else {
+      selectPart = 'SELECT *';
+    }
+
+    let wherePart;
+    let idsCount = 0;
+
+    if(advToggle.checked){
+      const rows = filtersContainer.querySelectorAll('.filt-row');
+      const filters = [];
+      rows.forEach(row=>{
+        const field2 = row.querySelector('.filt-field').value.trim();
+        const op = row.querySelector('.filt-op').value;
+        const value = row.querySelector('.filt-value').value;
+        if(!field2) return;
+        filters.push({ field: field2, op, value });
+      });
+      if(filters.length === 0){ toast('⚠️ Agrega al menos un filtro', 'error'); return; }
+      wherePart = 'WHERE\n' + filters.map(buildFilterClause).join('\nAND\n') + ';';
+      idsCount = filters.length;
+    } else {
+      const ids = parseList(document.getElementById('sel-ids').value);
+      if(ids.length === 0){ toast('⚠️ Agrega al menos un ID o valor para el WHERE', 'error'); return; }
+      wherePart = ids.length === 1
+        ? ('WHERE ' + field + ' = ' + formatSqlValue(ids[0]) + ';')
+        : ('WHERE ' + field + ' IN (\n' + ids.map(formatSqlValue).join(',\n') + '\n);');
+      idsCount = ids.length;
+    }
+
+    const sql = selectPart + '\nFROM ' + table + '\n' + wherePart;
+    document.getElementById('sel-output').innerHTML = highlightSql(sql);
+    lastGenerated = { type:'SELECT', sql, table };
+    appState.ids = idsCount;
+    appState.loaded = idsCount;
+    appState.lastOp = 'SELECT · ' + new Date().toLocaleTimeString('es-ES');
+    renderDashboard();
+    toast('✅ SELECT generado correctamente');
+  });
+
+  document.getElementById('sel-copy-sql').addEventListener('click', ()=>{
+    if(lastGenerated.type !== 'SELECT'){ toast('Genera un SELECT primero', 'error'); return; }
+    copyText(lastGenerated.sql, '✅ SQL copiado al portapapeles');
+  });
+
+  // Conversión rápida IN
+  document.getElementById('in-to-block').addEventListener('click', ()=>{
+    const list = parseList(document.getElementById('in-list').value);
+    if(list.length === 0){ toast('⚠️ Agrega valores en la lista', 'error'); return; }
+    const block = 'IN (\n' + list.map(formatSqlValue).join(',\n') + '\n)';
+    document.getElementById('in-block').value = block;
+    toast('✅ Convertido a bloque IN (...)');
+  });
+  document.getElementById('in-to-list').addEventListener('click', ()=>{
+    let raw = document.getElementById('in-block').value;
+    raw = raw.replace(/\bIN\b/gi, '').replace(/[()]/g, '');
+    const list = parseList(raw);
+    if(list.length === 0){ toast('⚠️ No se detectaron valores en el bloque IN', 'error'); return; }
+    document.getElementById('in-list').value = list.join('\n');
+    toast('✅ Convertido a lista vertical');
+  });
+})();
+
+/* ============================================================
+   MÓDULO: UTILIDADES
+   ============================================================ */
+(function(){
+  const utilOutput = document.getElementById('util-output');
+  function setUtilOutput(text){ utilOutput.textContent = text; }
+
+  // Contar registros
+  document.getElementById('util-count-btn').addEventListener('click', ()=>{
+    const raw = document.getElementById('util-count-input').value;
+    const rawLines = parseLinesRaw(raw);
+    const total = rawLines.length;
+    const empties = rawLines.filter(l => l.trim() === '').length;
+    const nonEmpty = rawLines.map(l=>l.trim()).filter(l => l !== '');
+    const uniqueSet = new Set(nonEmpty);
+    const duplicates = nonEmpty.length - uniqueSet.size;
+    document.getElementById('util-count-stats').innerHTML =
+      '<span class="stat-pill">Total: <b>' + total + '</b></span>' +
+      '<span class="stat-pill">Vacíos: <b>' + empties + '</b></span>' +
+      '<span class="stat-pill">Duplicados: <b>' + duplicates + '</b></span>' +
+      '<span class="stat-pill">Únicos: <b>' + uniqueSet.size + '</b></span>';
+    setUtilOutput(nonEmpty.join('\n'));
+  });
+
+  // Limpieza rápida
+  const cleanInput = document.getElementById('util-clean-input');
+  document.getElementById('util-trim-btn').addEventListener('click', ()=>{
+    const lines = parseLinesRaw(cleanInput.value).map(l => l.trim()).filter((l,i,arr)=> !(l==='' && i===arr.length-1));
+    cleanInput.value = lines.join('\n');
+    setUtilOutput(cleanInput.value);
+    toast('✅ Espacios eliminados');
+  });
+  document.getElementById('util-quotes-btn').addEventListener('click', ()=>{
+    const lines = parseLinesRaw(cleanInput.value).map(l => l.trim().replace(/^['"]+|['"]+$/g, ''));
+    cleanInput.value = lines.join('\n');
+    setUtilOutput(cleanInput.value);
+    toast('✅ Comillas eliminadas');
+  });
+  document.getElementById('util-commas-btn').addEventListener('click', ()=>{
+    const lines = parseLinesRaw(cleanInput.value).map(l => l.trim().replace(/,+$/, '').replace(/^,+/, ''));
+    cleanInput.value = lines.join('\n');
+    setUtilOutput(cleanInput.value);
+    toast('✅ Comas eliminadas');
+  });
+
+  // CSV <-> Lista
+  document.getElementById('util-to-list-btn').addEventListener('click', ()=>{
+    const list = parseList(document.getElementById('util-csv-input').value);
+    if(list.length === 0){ toast('⚠️ No hay datos para convertir', 'error'); return; }
+    setUtilOutput(list.join('\n'));
+    toast('✅ Convertido a lista');
+  });
+  document.getElementById('util-to-csv-btn').addEventListener('click', ()=>{
+    const list = parseList(document.getElementById('util-csv-input').value);
+    if(list.length === 0){ toast('⚠️ No hay datos para convertir', 'error'); return; }
+    setUtilOutput(list.join(','));
+    toast('✅ Convertido a CSV');
+  });
+
+  // Lista -> JSON / SQL IN
+  document.getElementById('util-to-json-btn').addEventListener('click', ()=>{
+    const list = parseList(document.getElementById('util-json-input').value);
+    if(list.length === 0){ toast('⚠️ No hay datos para convertir', 'error'); return; }
+    const jsonArr = list.map(v => /^-?\d+(\.\d+)?$/.test(v) ? Number(v) : v);
+    setUtilOutput(JSON.stringify(jsonArr, null, 2));
+    toast('✅ Convertido a JSON');
+  });
+  document.getElementById('util-to-in-btn').addEventListener('click', ()=>{
+    const list = parseList(document.getElementById('util-json-input').value);
+    if(list.length === 0){ toast('⚠️ No hay datos para convertir', 'error'); return; }
+    setUtilOutput('IN (\n' + list.map(formatSqlValue).join(',\n') + '\n)');
+    toast('✅ Convertido a SQL IN (...)');
+  });
+
+  // Formateador SQL (heurístico, no es un parser completo)
+  function formatSqlBasic(sql){
+    let s = sql.trim().replace(/\s+/g, ' ');
+    s = s.replace(/\bUPDATE\b/gi, '\nUPDATE');
+    s = s.replace(/\bSET\b/gi, '\nSET\n');
+    s = s.replace(/\bWHERE\b/gi, '\nWHERE');
+    s = s.replace(/\bSELECT\b/gi, '\nSELECT\n');
+    s = s.replace(/\bFROM\b/gi, '\nFROM');
+    s = s.replace(/\bINSERT\s+INTO\b/gi, '\nINSERT INTO');
+    s = s.replace(/\bVALUES\b/gi, '\nVALUES');
+    s = s.replace(/\bDELETE\s+FROM\b/gi, '\nDELETE FROM');
+    s = s.replace(/\bAND\b/gi, '\nAND');
+    s = s.replace(/\bIN\s*\(/gi, 'IN (\n');
+    s = s.replace(/,\s*/g, ',\n');
+    s = s.replace(/\)\s*;/g, '\n);');
+    const lines = s.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    return lines.join('\n');
+  }
+  document.getElementById('util-format-btn').addEventListener('click', ()=>{
+    const raw = document.getElementById('util-format-input').value.trim();
+    if(!raw){ toast('⚠️ Pega una sentencia SQL primero', 'error'); return; }
+    const formatted = formatSqlBasic(raw);
+    utilOutput.innerHTML = highlightSql(formatted);
+    lastGenerated = { type:'UTILS', sql: formatted, table:'-' };
+    toast('✅ SQL formateado');
+  });
+
+  document.getElementById('util-copy').addEventListener('click', ()=>{
+    copyText(utilOutput.textContent, '✅ Resultado copiado al portapapeles');
+  });
+})();
+
+
+/* ============================================================
+   BOTONES LIMPIAR — CADA APARTADO
+   No borran datos de otros módulos ni modifican la configuración
+   general. Solo limpian/restablecen el apartado correspondiente.
+   ============================================================ */
+function clearElementValue(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  if('value' in el) el.value = '';
+  else el.textContent = '';
+  if(el.tagName === 'PRE') el.innerHTML = '';
+}
+
+function bindClearButton(id, fn){
+  const btn = document.getElementById(id);
+  if(btn) btn.addEventListener('click', fn);
+}
+
+/* Conversor */
+bindClearButton('clear-conv-input', ()=>{
+  document.getElementById('conv-input').value = '';
+  document.getElementById('conv-output').textContent = '';
+  document.getElementById('conv-stats').innerHTML = '';
+  appState.loaded = 0;
+  if(lastGenerated.type === 'CONVERSOR') lastGenerated = {type:null,sql:'',table:''};
+  renderDashboard();
+  toast('🗑️ Conversor limpiado');
+});
+bindClearButton('clear-conv-options', ()=>{
+  document.getElementById('conv-zeros').value = '0';
+  document.getElementById('conv-zeros-custom').value = '0';
+  document.getElementById('conv-zeros-custom-wrap').style.display = 'none';
+  document.getElementById('conv-quotes').value = 'single';
+  document.getElementById('conv-lastcomma').checked = false;
+  document.querySelectorAll('#conv-orientation-toggle button').forEach(b=>b.classList.remove('active'));
+  document.querySelector('#conv-orientation-toggle button[data-mode="vertical"]').classList.add('active');
+  convOrientation = 'vertical';
+  document.getElementById('conv-sort').value = 'original';
+  toast('↩️ Opciones restablecidas');
+});
+bindClearButton('clear-conv-result', ()=>{
+  document.getElementById('conv-output').textContent = '';
+  if(lastGenerated.type === 'CONVERSOR') lastGenerated = {type:null,sql:'',table:''};
+  appState.lastOp = null;
+  renderDashboard();
+  toast('🗑️ Resultado limpiado');
+});
+
+/* UPDATE */
+bindClearButton('clear-upd-table', ()=>{
+  document.getElementById('upd-table').value = '';
+  toast('🗑️ Tabla limpiada');
+});
+bindClearButton('clear-upd-props', ()=>{
+  const c = document.getElementById('upd-props');
+  c.innerHTML = '';
+  const row = document.createElement('div');
+  row.className = 'prop-row';
+  row.innerHTML =
+    '<input type="text" class="input prop-name" placeholder="Propiedad (ej: FacturaInterna)">' +
+    '<input type="text" class="input prop-value" placeholder="Nuevo valor (ej: 2536987)">' +
+    '<button type="button" class="btn-icon remove-row" title="Eliminar">✕</button>';
+  row.querySelector('.remove-row').addEventListener('click', ()=> row.remove());
+  c.appendChild(row);
+  toast('🗑️ Propiedades limpiadas');
+});
+bindClearButton('clear-upd-ids', ()=>{
+  document.getElementById('upd-ids').value = '';
+  document.getElementById('upd-warning').classList.remove('show');
+  appState.ids = 0;
+  renderDashboard();
+  toast('🗑️ IDs limpiados');
+});
+bindClearButton('clear-upd-result', ()=>{
+  document.getElementById('upd-output').innerHTML = '';
+  document.getElementById('upd-warning').classList.remove('show');
+  if(lastGenerated.type === 'UPDATE') lastGenerated = {type:null,sql:'',table:''};
+  appState.props = 0;
+  appState.ids = 0;
+  appState.loaded = 0;
+  appState.lastOp = null;
+  renderDashboard();
+  toast('🗑️ Resultado limpiado');
+});
+
+/* SELECT / IN */
+bindClearButton('clear-sel-table', ()=>{
+  document.getElementById('sel-table').value = '';
+  document.getElementById('sel-field').value = 'Id';
+  toast('🗑️ Tabla y campo limpiados');
+});
+bindClearButton('clear-sel-columns', ()=>{
+  document.querySelector('input[name="sel-mode"][value="star"]').checked = true;
+  document.querySelector('input[name="sel-mode"][value="columns"]').checked = false;
+  document.getElementById('sel-columns').value = '';
+  document.getElementById('sel-columns-wrap').style.display = 'none';
+  toast('🗑️ Columnas limpiadas');
+});
+bindClearButton('clear-sel-where', ()=>{
+  document.getElementById('sel-advanced-toggle').checked = false;
+  document.getElementById('sel-basic-block').style.display = '';
+  document.getElementById('sel-advanced-block').style.display = 'none';
+  document.getElementById('sel-ids').value = '';
+  const fc = document.getElementById('sel-filters');
+  fc.innerHTML = '';
+  toast('🗑️ Condición WHERE limpiada');
+});
+bindClearButton('clear-sel-result', ()=>{
+  document.getElementById('sel-output').innerHTML = '';
+  if(lastGenerated.type === 'SELECT') lastGenerated = {type:null,sql:'',table:''};
+  appState.ids = 0;
+  appState.loaded = 0;
+  appState.lastOp = null;
+  renderDashboard();
+  toast('🗑️ Resultado limpiado');
+});
+bindClearButton('clear-in-conversion', ()=>{
+  document.getElementById('in-list').value = '';
+  document.getElementById('in-block').value = '';
+  toast('🗑️ Conversión IN limpiada');
+});
+
+/* Utilidades */
+bindClearButton('clear-util-count', ()=>{
+  document.getElementById('util-count-input').value = '';
+  document.getElementById('util-count-stats').innerHTML = '';
+  toast('🗑️ Contador limpiado');
+});
+bindClearButton('clear-util-clean', ()=>{
+  document.getElementById('util-clean-input').value = '';
+  toast('🗑️ Limpieza rápida reiniciada');
+});
+bindClearButton('clear-util-csv', ()=>{
+  document.getElementById('util-csv-input').value = '';
+  toast('🗑️ CSV limpiado');
+});
+bindClearButton('clear-util-json', ()=>{
+  document.getElementById('util-json-input').value = '';
+  toast('🗑️ Lista JSON / IN limpiada');
+});
+bindClearButton('clear-util-format', ()=>{
+  document.getElementById('util-format-input').value = '';
+  toast('🗑️ Formateador limpiado');
+});
+bindClearButton('clear-util-result', ()=>{
+  document.getElementById('util-output').innerHTML = '';
+  if(lastGenerated.type === 'UTILS') lastGenerated = {type:null,sql:'',table:''};
+  appState.lastOp = null;
+  renderDashboard();
+  toast('🗑️ Resultado limpiado');
+});
+
+/* ============================================================
+   CORRECCIÓN DE INICIALIZACIÓN
+   ============================================================
+   El archivo actual conserva llamadas antiguas a renderHistory()
+   y renderFavorites(), aunque esos módulos ya no existen.
+   Se eliminan para evitar un ReferenceError al cargar la página.
+   ============================================================ */
+
+
+/* ============================================================
+   CONTACTO
+   ============================================================ */
+(function(){
+  const modal = document.getElementById('contact-modal');
+  const openBtn = document.getElementById('footer-contact-btn');
+  const closeBtn = document.getElementById('contact-close');
+  const form = document.getElementById('contact-form');
+
+  function openContact(){
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    setTimeout(()=>document.getElementById('contact-name').focus(), 50);
+  }
+  function closeContact(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  }
+
+  openBtn.addEventListener('click', openContact);
+  closeBtn.addEventListener('click', closeContact);
+
+  modal.addEventListener('click', e=>{
+    if(e.target === modal) closeContact();
+  });
+
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && modal.classList.contains('open')) closeContact();
+  });
+
+  form.addEventListener('submit', async e=>{
+    e.preventDefault();
+
+    const name = document.getElementById('contact-name').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    const type = document.getElementById('contact-type').value;
+    const message = document.getElementById('contact-message').value.trim();
+    const tokenField = document.querySelector('[name="cf-turnstile-response"]');
+    const turnstileToken = tokenField ? tokenField.value : '';
+
+    if(!name || !email || !message){
+      toast('⚠️ Completa los campos de contacto', 'error');
+      return;
+    }
+
+    if(!turnstileToken){
+      toast('⚠️ Completa la verificación de seguridad', 'error');
+      return;
+    }
+
+    const button = document.getElementById('contact-submit');
+    const original = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '⏳ Enviando...';
+
+    try{
+      const response = await fetch('/api/contact', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          name,
+          email,
+          type,
+          message,
+          turnstileToken
+        })
+      });
+
+      const data = await response.json().catch(()=>({}));
+
+      if(!response.ok){
+        throw new Error(data.error || 'No fue posible enviar el mensaje.');
+      }
+
+      form.reset();
+      if(window.turnstile) window.turnstile.reset();
+      closeContact();
+      toast('✅ Mensaje enviado correctamente', 'success');
+    }catch(error){
+      toast('❌ ' + (error.message || 'No fue posible enviar el mensaje.'), 'error');
+    }finally{
+      button.disabled = false;
+      button.innerHTML = original;
+    }
+  });
+})();
+
+/* ============================================================
+   INICIALIZACIÓN
+   ============================================================ */
+initTheme();
+resetDashboardOnLoad();
+</script>
+</body>
+</html>
